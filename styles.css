@@ -1,0 +1,248 @@
+body { font-family: sans-serif; }
+
+header :first-of-type{
+  text-align: center;
+}
+
+h1{
+  font-family: Arial, Helvetica, sans-serif;
+  color: #47bef5;
+}
+
+.info{
+  width: 100%;
+  position: relative;
+}
+
+#infoCell1{
+  width: 33%;
+  height: 50px;
+}
+#infoCell2{
+  width: 33%;
+  height: 50px;
+}
+#infoCell3{
+  width: 33%;
+  height: 50px;
+}
+
+.sectionLeft{
+  float: left;
+  position: relative;
+  display: none;
+}
+
+#sectionMid{
+  margin: auto;
+}
+
+.sectionRight{
+  float: right;
+  width: 33%;
+  position: relative;
+  display: none;
+}
+
+#player1Details{
+  float: left;
+  position: relative;
+  width: 50%;
+
+}
+
+#player2Details{
+  float: left;
+  position: relative;
+  width: 50%;
+}
+
+.scoreStyle{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  color: crimson;
+  display: none;
+}
+
+.score1Style{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  color: crimson;
+}
+
+.score2Style{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 36px;
+  font-weight: bold;
+  color:royalblue;
+}
+
+.player1Style{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  color: crimson;
+}
+
+.player2Style{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  color:royalblue;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+.content{
+  margin: -50px 0 0 9%; 
+  display: none;
+}
+
+.scene {
+  width: 90px;
+  height: 120px;
+  margin: 40px 0;
+  perspective: 600px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+}
+
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  line-height: 260px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.card__face--back {
+  transform: rotateY(180deg);
+}
+
+.card img{
+    height: 120px;
+    width: 90px;
+}
+
+td{
+    height: 120px;
+    width: 90px;
+}
+
+.hidden {
+  display: none;
+}
+
+.noClick{
+  pointer-events: none;
+}
+
+.win-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.win-modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  text-align: center;
+}
+
+
+.play-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.play-modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  text-align: justify;
+  position: relative;
+}
+
+.quit-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px; /* Full width */
+  max-width: 100%;
+  height: 400px;
+  max-height: 100%;
+  z-index: 1; /* Sit on top */
+  overflow: auto; /* Enable scroll if needed */
+}
+
+.quit-modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  text-align: justify;
+  position: relative;
+}
+
+.button{
+  text-align: center;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.Score{
+  margin: auto;
+}
