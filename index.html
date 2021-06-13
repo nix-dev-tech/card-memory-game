@@ -1,1 +1,884 @@
-<h1>Card Memory Game</h1>
+<!DOCTYPE html>
+
+<html>
+    <link rel="stylesheet" href="styles.css">
+    <script src="index.js"></script>
+    <header>
+        <h1>Card Memory Game</h1>
+ 
+        <div id="playModal" class="play-modal">
+            <div class="play-modal-content">
+                <span class="close">&times;</span>
+                <header style="font-size: 24px; font-weight: bold;">
+                    Choose Settings
+                </header>
+                <hr size="5" color="red">
+                <p id="players">
+                    <strong>No. of Players: </strong>
+                    <input type="radio" id="singlePlayer" name="player" value="single-player">
+                    <label for="singlePlayer">Single Player</label>
+                    <input type="radio" id="twoPlayers" name="player" value="two-players">
+                    <label for="twoPlayers">Two Players</label>
+                </p>
+                
+                <p id="game-mode1">
+                    <strong>Game Mode: </strong>
+                    <input type="radio" id="clickLimit" name="variation1" value="click-limit">
+                    <label for="clickLimit">Click Limit</label>
+                    <input type="radio" id="timeLimit" name="variation1" value="time-limit">
+                    <label for="timeLimit">Time Limit</label>
+                    <input type="radio" id="scoreLimit" name="variation1" value="score-limit">
+                    <label for="scoreLimit">Score Limit</label>
+                    <input type="radio" id="noLimit" name="variation1" value="no-limit">
+                    <label for="noLimit">No Limit</label>
+                </p>
+                <p id="game-mode2">
+                    <strong>Game Mode: </strong>
+                    <input type="radio" id="highScore" name="variation2" value="high-score">
+                    <label for="highScore">Time</label>
+                    <input type="radio" id="pairs" name="variation2" value="pairs">
+                    <label for="pairs">No. of Pairs</label>
+                </p>
+                <p id="difficulty">
+                    <strong>Difficulty: </strong>
+                    <input type="radio" id="easy" name="diff" value="easy">
+                    <label for="easy">Easy</label>
+                    <input type="radio" id="medium" name="diff" value="medium">
+                    <label for="medium">Medium</label>
+                    <input type="radio" id="hard" name="diff" value="hard">
+                    <label for="hard">Hard</label>
+                </p>
+                <button id="create-btn" disabled>Create Game
+            </div>
+        </div>
+        <table class="info">
+            <tr class="infoRow">
+                <td id = "infoCell1">
+                    <div id="player1Name" class="sectionLeft">
+                        <span id=player1 class="player1Style">Player1</span>
+                    </div>
+                </td>
+                <td id = "infoCell2">
+                    <div id="sectionMid">
+                        <button id="start-btn">Create New Game!</button>
+                    </div>
+                </td>
+                <td id = "infoCell3">
+                    <div id="player2Name" class="sectionRight">
+                        <span id="player2" class="player2Style">Player2</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+      <table class="info">
+            <tr class="infoRow">
+                <td id = "infoCell1">
+                    <div id="player1score" class="sectionLeft" class="hidden">
+                        <span id="player1Score" class="score1Style">0</span>
+                    </div>
+                </td>
+                <td id = "infoCell2">
+                    <span id="status" class="scoreStyle"></span>
+                </td>
+                <td id = "infoCell3">
+                    <div id="player2score" class="sectionRight" class="hidden">
+                        <span id="player2Score" class="score2Style">0</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    
+        <br>
+        <hr size="5" color="red">
+    </header>
+    <title>Card Game</title>
+    <body>
+        <div id="quitModal" class="quit-modal">
+            <div class="quit-modal-content">
+                <span class="close">&times;</span>
+                "You will lose progress in current game. Do you really want to quit current game? Click Yes and Create New Game."
+                <div class="button">
+                    <button id="quit-yes">Yes
+                    <button id="quit-no">No
+                </div>
+            </div>
+        </div>
+        <div class="content">
+        <table class = "platform">
+            <tr>    
+                <td>
+                    <div id = "tile1">
+                        <div class="scene">
+                            <div id ="card1" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="1" src="Cards\ClubAce.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile2">
+                        <div class="scene">
+                            <div id ="card2" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="2" src="Cards\ClubAce.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile3">
+                        <div class="scene">
+                            <div id ="card3" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="3" src="Cards\ClubAce.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile4">
+                        <div class="scene">
+                            <div id ="card4" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="4" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile5">
+                        <div class="scene">
+                            <div id ="card5" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="5" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile6">
+                        <div class="scene">
+                            <div id ="card6" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="6" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile7">
+                        <div class="scene">
+                            <div id ="card7" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="7" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile8">
+                        <div class="scene">
+                            <div id ="card8" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="8" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile9">
+                        <div class="scene">
+                            <div id ="card9" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="9" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile10">
+                        <div class="scene">
+                            <div id ="card10" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="10" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile11">
+                        <div class="scene">
+                            <div id ="card11" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="11" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile12">
+                        <div class="scene">
+                            <div id ="card12" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="12" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile13">
+                        <div class="scene">
+                            <div id ="card13" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="13" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>    
+                <td>
+                    <div id = "tile14">
+                        <div class="scene">
+                            <div id ="card14" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="14" src="Cards\ClubAce.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile15">
+                        <div class="scene">
+                            <div id ="card15" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="15" src="Cards\ClubAce.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile16">
+                        <div class="scene">
+                            <div id ="card16" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="16" src="Cards\ClubAce.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile17">
+                        <div class="scene">
+                            <div id ="card17" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="17" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile18">
+                        <div class="scene">
+                            <div id ="card18" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="18" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile19">
+                        <div class="scene">
+                            <div id ="card19" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="19" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile20">
+                        <div class="scene">
+                            <div id ="card20" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="20" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile21">
+                        <div class="scene">
+                            <div id ="card21" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="21" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile22">
+                        <div class="scene">
+                            <div id ="card22" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="22" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile23">
+                        <div class="scene">
+                            <div id ="card23" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="23" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile24">
+                        <div class="scene">
+                            <div id ="card24" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="24" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile25">
+                        <div class="scene">
+                            <div id ="card25" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="25" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile26">
+                        <div class="scene">
+                            <div id ="card26" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="26" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>    
+                <td>
+                    <div id = "tile27">
+                        <div class="scene">
+                            <div id ="card27" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="27" src="Cards\ClubAce.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile28">
+                        <div class="scene">
+                            <div id ="card28" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="28" src="Cards\ClubAce.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile29">
+                        <div class="scene">
+                            <div id ="card29" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="29" src="Cards\ClubAce.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile30">
+                        <div class="scene">
+                            <div id ="card30" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="30" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile31">
+                        <div class="scene">
+                            <div id ="card31" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="31" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile32">
+                        <div class="scene">
+                            <div id ="card32" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="32" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile33">
+                        <div class="scene">
+                            <div id ="card33" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="33" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile34">
+                        <div class="scene">
+                            <div id ="card34" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="34" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile35">
+                        <div class="scene">
+                            <div id ="card35" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="35" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile36">
+                        <div class="scene">
+                            <div id ="card36" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="36" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile37">
+                        <div class="scene">
+                            <div id ="card37" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="37" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile38">
+                        <div class="scene">
+                            <div id ="card38" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="38" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile39">
+                        <div class="scene">
+                            <div id ="card39" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="39" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>    
+                <td>
+                    <div id = "tile40">
+                        <div class="scene">
+                            <div id ="card40" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="40" src="Cards\ClubAce.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile41">
+                        <div class="scene">
+                            <div id ="card41" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="41" src="Cards\ClubAce.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile42">
+                        <div class="scene">
+                            <div id ="card42" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="42" src="Cards\ClubAce.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile43">
+                        <div class="scene">
+                            <div id ="card43" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="43" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile44">
+                        <div class="scene">
+                            <div id ="card44" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="44" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile45">
+                        <div class="scene">
+                            <div id ="card45" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="45" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile46">
+                        <div class="scene">
+                            <div id ="card46" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="46" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile47">
+                        <div class="scene">
+                            <div id ="card47" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="47" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile48">
+                        <div class="scene">
+                            <div id ="card48" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="48" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile49">
+                        <div class="scene">
+                            <div id ="card49" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="49" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile50">
+                        <div class="scene">
+                            <div id ="card50" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="50" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile51">
+                        <div class="scene">
+                            <div id ="card51" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="51" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id = "tile52">
+                        <div class="scene">
+                            <div id ="card52" class="card">
+                                <div class="card__face card__face--front">
+                                    <img src="Cards\cardBack.png">
+                                </div>
+                                <div class="card__face card__face--back">
+                                    <img id="52" src="Cards\ClubFive.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <div id="winModal" class="win-modal">
+                <div class="win-modal-content">
+                    <span class="close">&times;</span>
+                    <header style="font-size: 24px; font-weight: bold;">
+                        Congratulations!!! You won the game.
+                    </header>
+                    <div class="Score">
+                        <p><strong>Cards uncovered:</strong> <span id="uncoveredCards">520</span></p>
+                        <p><strong>Resources Bonus: </strong><span id="resourceBonus">520</span></p>
+                        <p><strong>Difficulty Multiplier </strong><span id="multiplier">520</span></p>
+                        <p><strong>Total Score: </strong><span id="totalScore">520</span></p>
+                    </div>
+                    <button id="restart-btn">Play Again</div>
+                </div>
+            </div>
+            <div id="player1winModal" class="win-modal">
+                <div class="win-modal-content">
+                    <header style="font-size: 24px; font-weight: bold;">
+                        Congratulations <span id="playerName"></span>!!! You won the game.
+                    </header>
+                    <div id="player1Details">
+                        <div class="Score">
+                            <p style="font-size: 24px;"><strong>Player1</strong></p>
+                            <p><strong>Total Score: </strong><span id="player1TotalScore"></span></p>
+                        </div>
+                    </div>
+                    <div id="player2Details">
+                        <div class="Score">
+                            <p style="font-size: 24px;"><strong>Player2</strong></p>
+                            <p><strong>Total Score: </strong><span id="player2TotalScore"></span></p>
+                        </div>
+                    </div>
+                    
+                    <button id="restart2-btn">Play Again</div>
+                </div>
+            </div>
+        </table>
+        </div>
+    </body>
+</html>
